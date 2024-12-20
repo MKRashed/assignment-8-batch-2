@@ -245,7 +245,7 @@ export default function Page({ params }) {
         <h2 className="text-2xl font-bold mb-4">More Like This</h2>
         <div>
               {loadingRelated ? (
-                    <p>Loading related movies...</p>
+                    <p className="loading">Loading related movies...</p>
                 ) : (
                     <div className="flex space-x-4 overflow-x-auto pb-4" >
                         {relatedMovies.map((movie) => (

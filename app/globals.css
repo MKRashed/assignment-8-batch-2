@@ -27,3 +27,61 @@
     }
   }
 }
+
+@layer utilities {
+  .box {
+    @apply border border-white/30 rounded-lg p-8 max-w-[800px] m-4;
+  }
+  .loading {
+    @apply box p-4;
+    position: relative;
+  }
+
+  .loading::before {
+    content: "⌛️";
+  }
+  .loading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(87, 87, 87);
+    opacity: 0.5;
+    animation: skeletonAnim 1s infinite alternate;
+    transition: all 0.5s ease-in-out;
+  }
+  @keyframes skeletonAnim {
+    from {
+      background-color: rgba(68, 68, 68, 0);
+    }
+    to {
+      background-color: rgb(86, 86, 86);
+    }
+  }
+
+  .error {
+    @apply box bg-red-900/30 border-red-700 text-red-500 relative;
+  }
+
+  .error::before {
+    content: "🚧 ";
+  }
+
+  .warning {
+    @apply box bg-yellow-900/30 border-yellow-700 text-yellow-500 relative;
+  }
+
+  .warning::before {
+    content: "⚠️ ";
+  }
+
+  .success {
+    @apply box bg-green-900/30 border-green-700 text-green-500 relative;
+  }
+
+  .success::before {
+    content: "✅ ";
+  }
+}
