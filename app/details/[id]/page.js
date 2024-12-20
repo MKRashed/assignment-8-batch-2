@@ -1,13 +1,30 @@
+'use client'
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default function Page() {
+export default function Page({ params }) {
+
+  const { id } = params;
+
+  const [movieDetails, setMovieDetails] = useState({});
+
+  useEffect(() => {
+            async function fetchData() {
+                const response = await fetch(`/api/movie-details/${id}`)
+                const data = await response.json();
+                setMovieDetails(data);
+            }
+      
+            fetchData();
+        }, []);
+
   return (
     <div className="bg-black text-white">
       <div id="movieDetails" className="min-h-screen pt-20 mb-8">
         <div className="relative h-screen">
           <div className="absolute inset-0">
             <Image
-              src="https://image.tmdb.org/t/p/original/iR79ciqhtaZ9BE7YFA1HpCHQgX4.jpg"
+              src={`https://image.tmdb.org/t/p/original/${movieDetails.backdrop_path}`} 
               alt="Smile 2"
               className="w-full h-full object-cover"
               width={300}
@@ -20,7 +37,7 @@ export default function Page() {
             <div className="flex flex-col md:flex-row gap-8">
               <div className="md:w-1/3">
                 <Image
-                  src="https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg"
+                  src={`https://image.tmdb.org/t/p/original/${movieDetails.poster_path}`} 
                   alt="Smile 2"
                   className="w-full rounded-lg shadow-lg"
                   width={300}
@@ -29,32 +46,30 @@ export default function Page() {
               </div>
 
               <div className="md:w-2/3">
-                <h1 className="text-4xl font-bold mb-4">Smile 2</h1>
+                <h1 className="text-4xl font-bold mb-4">{movieDetails?.original_title}</h1>
 
                 <div className="flex items-center mb-4 space-x-4">
-                  <span className="text-green-500"> 24 November 2024 </span>
+                  <span className="text-green-500"> {movieDetails?.release_date} </span>
                   <span>| </span>
-                  <span>127 min</span>
+                  <span>{movieDetails?.runtime} min</span>
                 </div>
 
                 <p className="text-lg mb-6">
-                  About to embark on a new world tour, global pop sensation Skye
-                  Riley begins experiencing increasingly terrifying and
-                  inexplicable events. Overwhelmed by the escalating horrors and
-                  the pressures of fame, Skye is forced to face her dark past to
-                  regain control of her life before it spirals out of control.
+                {movieDetails?.overview}
                 </p>
 
                 <div className="mb-6">
                   <h3 className="text-gray-400 mb-2">Genres</h3>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">
-                      Horror{" "}
-                    </span>
-                    <span className="px-3 py-1 bg-gray-800 rounded-full text-sm">
-                      Mystery
-                    </span>
-                  </div>
+                      { 
+                        movieDetails?.genres?.map( (item) => (
+                          <span key={item.id} className="px-3 py-1 bg-gray-800 rounded-full text-sm">
+                            {item?.name}
+                          </span>
+
+                        ))
+                      }
+                    </div>
                 </div>
 
                 <div className="mb-6">
