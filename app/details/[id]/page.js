@@ -1,4 +1,5 @@
 'use client'
+import MovieCard from "@/components/MovieCard";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -248,19 +249,7 @@ export default function Page({ params }) {
                     <p className="loading">Loading related movies...</p>
                 ) : (
                     <div className="flex space-x-4 overflow-x-auto pb-4" >
-                        {relatedMovies.map((movie) => (
-                          <div className="flex-shrink-0 w-48 cursor-pointer hover:scale-105 transition-transform">
-                          <a href="details.html">
-                            <Image
-                              src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                              alt="The Good German"
-                              className="w-full rounded-lg"
-                              width={300}
-                              height={350}
-                            />
-                          </a>
-                        </div>
-                        ))}
+                        {relatedMovies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
                     </div>
               )}
         </div>

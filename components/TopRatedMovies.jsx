@@ -1,7 +1,6 @@
 'use client'
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import MovieCard from "./MovieCard";
 
 export default function TopRatedMovies() {
 
@@ -24,19 +23,7 @@ export default function TopRatedMovies() {
       <h2 className="text-2xl font-bold mb-4">Top Rated</h2>
       <div id="topRatedMovies" className="flex space-x-4 overflow-x-auto pb-4">
         {
-          topRatedMovies.map( (item) => (
-            <div key={item.id} className="flex-shrink-0 w-48 cursor-pointer hover:scale-105 transition-transform">
-              <Link href={`details/${item?.id}`}>
-                <Image
-                  src={`https://image.tmdb.org/t/p/original/${item.poster_path}`} 
-                  alt="The Shawshank Redemption"
-                  className="w-full rounded-lg"
-                  width={300}
-                  height={350}
-                />
-              </Link>
-            </div>
-          ))
+          topRatedMovies.map( (item) => <MovieCard key={item.id} movie={item} />)
         }
       </div>
     </div>
