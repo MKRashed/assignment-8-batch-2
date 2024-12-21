@@ -35,8 +35,8 @@ export default function Page({ params }) {
         }, []);
 
   return (
-    <div className="bg-black text-white">
-      <div id="movieDetails" className="min-h-screen pt-20 mb-8">
+    <div className="bg-black text-white min-h-screen">
+      <div id="movieDetails" className="pt-20 mb-8">
         <div className="relative h-screen">
           <div className="absolute inset-0">
             <Image
@@ -242,7 +242,7 @@ export default function Page({ params }) {
       </div>
 
       {/* <!-- Similar Movies Section --> */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 pt-40 mb-8">
         <h2 className="text-2xl font-bold mb-4">More Like This</h2>
         <div>
               {loadingRelated ? (
